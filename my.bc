@@ -1,0 +1,9 @@
+.method int sums(int a,int b)
+{
+      iload 1;       
+      iload 2;       
+      iadd;         
+      ireturn;
+           
+}
+.end method
