@@ -1,76 +1,193 @@
-
 grammar bc;
 
-// Ponto de entrada para o código bytecode
-programa : (cabecalho | declaracaoClasse | metodo)* EOF ;
+// ==========================
+// Programa
+// ==========================
+programa
+    : (cabecalho | declaracaoClasse | metodo)* EOF
+    ;
 
-// Cabeçalho do arquivo (opcional)
-cabecalho : '.source' STRING '.class' ID '.super' ID ;
+// ==========================
+// Cabeçalho
+// ==========================
+cabecalho
+    : '.source' STRING
+      '.class' ID
+      '.super' ID
+    ;
 
-// Declaração de classe
-declaracaoClasse : '.class' modificador* ID '{' (campo | metodo)* '}' ;
+// ==========================
+// Classe
+// ==========================
+declaracaoClasse
+    : '.class' modificador* ID '{'
+        (campo | metodo)*
+      '}'
+    ;
 
-// Modificadores de acesso (public, private, etc.)
-modificador : 'public' | 'private' | 'protected' | 'static' | 'final' ;
+// ==========================
+// Modificadores
+// ==========================
+modificador
+    : 'public'
+    | 'private'
+    | 'protected'
+    | 'static'
+    | 'final'
+    ;
 
-// Declaração de campo (variável de classe)
-campo : '.field' modificador* tipo ID ;
+// ==========================
+// Campos
+// ==========================
+campo
+    : '.field' modificador* tipo ID ';'
+    ;
 
-// Declaração de método
-metodo : '.method' modificador* tipo ID '(' parametroLista? ')' '{' instrucao* '}' '.end' 'method' ;
+// ==========================
+// Métodos
+// ==========================
+metodo
+    : '.method' modificador* tipo ID '(' parametroLista? ')'
+      '{'
+        instrucao*
+      '}'
+      '.end' 'method'
+    ;
 
-// Lista de parâmetros do método
-parametroLista : parametro (',' parametro)* ;
-parametro : tipo ID ;
+// ==========================
+// Parâmetros
+// ==========================
+parametroLista
+    : parametro (',' parametro)*
+    ;
 
+parametro
+    : tipo ID
+    ;
+
+// ==========================
 // Instruções
-instrucao : load
-          | store
-          | consts
-          | operadorBinario
-          | chamadaMetodo
-          | retorno
-          | controleFluxo
-          ;
+// ==========================
+instrucao
+    : load
+    | store
+    | consts
+    | operadorBinario
+    | chamadaMetodo
+    | retorno
+    | controleFluxo
+    | labelDef
+    | stackOp
+    ;
 
-// Instruções de carregamento (load)
-load : 'iload' NUMERO ';'
-     | 'aload' NUMERO ';'
-     ;
+// ==========================
+// Labels (FIX IMPORTANTE)
+// ==========================
+labelDef
+    : rotulo ':'
+    ;
 
-// Instruções de armazenamento (store)
-store : 'istore' NUMERO ';'
-      | 'astore' NUMERO ';'
-      ;
+// ==========================
+// Load / Store
+// ==========================
+load
+    : 'iload' NUMERO ';'
+    | 'aload' NUMERO ';'
+    ;
 
-// Instruções de constantes (const)
-consts : 'iconst_' NUMERO ';'
-      | 'ldc' NUMERO ';'
-      ;
+store
+    : 'istore' NUMERO ';'
+    | 'astore' NUMERO ';'
+    ;
 
-// Operações aritméticas
-operadorBinario : ('iadd' | 'isub' | 'imul' | 'idiv') ';' ;
+// ==========================
+// Constantes (MELHORADO)
+// ==========================
+consts
+    : ICONST ';'
+    | 'ldc' (NUMERO | STRING) ';'
+    ;
 
-// Chamada de método
-chamadaMetodo : 'invokevirtual' ID '/' ID '(' parametroLista? ')' tipo ';' ;
+// ==========================
+// Operações
+// ==========================
+operadorBinario
+    : ('iadd' | 'isub' | 'imul' | 'idiv') ';'
+    ;
 
-// Retorno de método
-retorno : 'return' ';' | 'ireturn' ';' | 'areturn' ';' ;
+// ==========================
+// Stack ops (NOVO)
+// ==========================
+stackOp
+    : 'dup' ';'
+    | 'pop' ';'
+    ;
 
-// Controle de fluxo
-controleFluxo : 'goto' rotulo ';'
-              | 'ifeq' rotulo ';'
-              | 'ifne' rotulo ';'
-              ;
+// ==========================
+// Chamada de método (FIX)
+// ==========================
+chamadaMetodo
+    : 'invokevirtual' classeNome '/' metodoNome '(' descriptorLista? ')' tipo ';'
+    ;
 
-// Rótulos para controle de fluxo
-rotulo : 'L' NUMERO ;
+classeNome : ID ;
+metodoNome : ID ;
 
-// Tipos de dados primitivos e objetos
-tipo : 'int' | 'float' | 'double' | 'long' | 'void' | 'boolean' | ID ;
+descriptorLista
+    : tipo (',' tipo)*
+    ;
 
-// Tokens básicos
-ID : [a-zA-Z_][a-zA-Z0-9_/]* ;
-STRING : '"' (~["])* '"' ;
-NUMERO : [0-9]+ ;
-WS : [ \t\r\n]+ -> skip ;
+// ==========================
+// Retorno
+// ==========================
+retorno
+    : 'return' ';'
+    | 'ireturn' ';'
+    | 'areturn' ';'
+    ;
+
+// ==========================
+// Controlo de fluxo
+// ==========================
+controleFluxo
+    : 'goto' rotulo ';'
+    | 'ifeq' rotulo ';'
+    | 'ifne' rotulo ';'
+    ;
+
+// ==========================
+// Label
+// ==========================
+rotulo
+    : 'L' NUMERO
+    ;
+
+// ==========================
+// Tipos
+// ==========================
+tipo
+    : 'int'
+    | 'float'
+    | 'double'
+    | 'long'
+    | 'void'
+    | 'boolean'
+    | ID
+    ;
+
+// ==========================
+// Tokens
+// ==========================
+ICONST
+    : 'iconst_0'
+    | 'iconst_1'
+    | 'iconst_2'
+    | 'iconst_3'
+    | 'iconst_4'
+    | 'iconst_5'
+    ;
+
+ID      : [a-zA-Z_][a-zA-Z0-9_/]* ;
+STRING  : '"' (~["])* '"' ;
+NUMERO  : [0-9]+ ;
+WS      : [ \t\r\n]+ -> skip ;

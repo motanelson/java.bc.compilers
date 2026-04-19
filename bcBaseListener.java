@@ -123,6 +123,18 @@ public class bcBaseListener implements bcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLabelDef(bcParser.LabelDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLabelDef(bcParser.LabelDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterLoad(bcParser.LoadContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -171,6 +183,18 @@ public class bcBaseListener implements bcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStackOp(bcParser.StackOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStackOp(bcParser.StackOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterChamadaMetodo(bcParser.ChamadaMetodoContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -178,6 +202,42 @@ public class bcBaseListener implements bcListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitChamadaMetodo(bcParser.ChamadaMetodoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterClasseNome(bcParser.ClasseNomeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitClasseNome(bcParser.ClasseNomeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMetodoNome(bcParser.MetodoNomeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMetodoNome(bcParser.MetodoNomeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDescriptorLista(bcParser.DescriptorListaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDescriptorLista(bcParser.DescriptorListaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -97,6 +97,16 @@ public interface bcListener extends ParseTreeListener {
 	 */
 	void exitInstrucao(bcParser.InstrucaoContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link bcParser#labelDef}.
+	 * @param ctx the parse tree
+	 */
+	void enterLabelDef(bcParser.LabelDefContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link bcParser#labelDef}.
+	 * @param ctx the parse tree
+	 */
+	void exitLabelDef(bcParser.LabelDefContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link bcParser#load}.
 	 * @param ctx the parse tree
 	 */
@@ -137,6 +147,16 @@ public interface bcListener extends ParseTreeListener {
 	 */
 	void exitOperadorBinario(bcParser.OperadorBinarioContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link bcParser#stackOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterStackOp(bcParser.StackOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link bcParser#stackOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitStackOp(bcParser.StackOpContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link bcParser#chamadaMetodo}.
 	 * @param ctx the parse tree
 	 */
@@ -146,6 +166,36 @@ public interface bcListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitChamadaMetodo(bcParser.ChamadaMetodoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link bcParser#classeNome}.
+	 * @param ctx the parse tree
+	 */
+	void enterClasseNome(bcParser.ClasseNomeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link bcParser#classeNome}.
+	 * @param ctx the parse tree
+	 */
+	void exitClasseNome(bcParser.ClasseNomeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link bcParser#metodoNome}.
+	 * @param ctx the parse tree
+	 */
+	void enterMetodoNome(bcParser.MetodoNomeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link bcParser#metodoNome}.
+	 * @param ctx the parse tree
+	 */
+	void exitMetodoNome(bcParser.MetodoNomeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link bcParser#descriptorLista}.
+	 * @param ctx the parse tree
+	 */
+	void enterDescriptorLista(bcParser.DescriptorListaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link bcParser#descriptorLista}.
+	 * @param ctx the parse tree
+	 */
+	void exitDescriptorLista(bcParser.DescriptorListaContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link bcParser#retorno}.
 	 * @param ctx the parse tree

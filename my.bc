@@ -1,9 +1,10 @@
-.method int sums(int a,int b)
-{
-      iload 1;       
-      iload 2;       
-      iadd;         
-      ireturn;
-           
+.method public int main() {
+    iconst_5;
+    iconst_3;
+    iadd;
+    istore 0;
+
+    iload 0;
+    ireturn;
 }
 .end method
